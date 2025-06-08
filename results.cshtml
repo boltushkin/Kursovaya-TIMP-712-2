@@ -1,0 +1,86 @@
+﻿@page
+@model MyCoreApp.Pages.ResultsModel
+@{
+    ViewData["Title"] = "Результаты тестирования";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Система оценки знаний</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")">Главная</a></li>
+                    <li><a href="/Login" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Login" ? "active" : "")">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="results-section">
+        <div class="container">
+            <h2>@ViewData["Title"]</h2>
+
+            <div class="score-card">
+                <h3>@Model.TestResult.TestName</h3>
+                <div class="score">
+                    <span class="percentage">@Model.TestResult.PercentageCorrect%</span>
+                    <span class="grade">Оценка: @Model.TestResult.Grade</span>
+                </div>
+                <p>Правильных ответов: @Model.TestResult.CorrectAnswers из @Model.TestResult.TotalQuestions</p>
+                <p>Время выполнения: @Model.TestResult.TimeTaken минут</p>
+                <p>Дата прохождения: @Model.TestResult.CompletionDate.ToString("dd.MM.yyyy HH:mm")</p>
+            </div>
+
+            <div class="detailed-results">
+                <h3>Подробные результаты</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Вопрос</th>
+                            <th>Ваш ответ</th>
+                            <th>Правильный ответ</th>
+                            <th>Результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var question in Model.TestResult.QuestionResults)
+                        {
+                            <tr class="@(question.IsCorrect ? "correct" : "incorrect")">
+                                <td>@question.QuestionNumber. @question.QuestionText</td>
+                                <td>@question.UserAnswer</td>
+                                <td>@question.CorrectAnswer</td>
+                                <td>@(question.IsCorrect ? "✓" : "✗")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="actions">
+                <a asp-page="/Index" class="btn">На главную</a>
+                @if (Model.TestResult.ShowSolutions)
+                {
+                    <a href="@Model.TestResult.SolutionsUrl" class="btn">Посмотреть решение</a>
+                }
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© @DateTime.Now.Year Система оценки знаний. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>

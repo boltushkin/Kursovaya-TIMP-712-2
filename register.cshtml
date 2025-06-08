@@ -1,0 +1,102 @@
+﻿@page
+@model MyCoreApp.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Регистрация в системе";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Система оценки знаний</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")">Главная</a></li>
+                    <li><a href="/Login" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Login" ? "active" : "")">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="register-section">
+        <div class="container">
+            <div class="register-form">
+                <h2>Создать аккаунт</h2>
+                <form id="registrationForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Username">Логин:</label>
+                        <input asp-for="Input.Username" class="form-control">
+                        <span asp-validation-for="Input.Username" class="text-danger"></span>
+                        <span class="hint">Минимум 4 символа</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email">Email:</label>
+                        <input asp-for="Input.Email" class="form-control">
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Password">Пароль:</label>
+                        <input asp-for="Input.Password" class="form-control">
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        <span class="hint">Минимум 6 символов</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.ConfirmPassword">Подтвердите пароль:</label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control">
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.UserType">Тип пользователя:</label>
+                        <select asp-for="Input.UserType" class="form-control">
+                            <option value="Student">Студент</option>
+                            <option value="Teacher">Преподаватель</option>
+                        </select>
+                        <span asp-validation-for="Input.UserType" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn">Зарегистрироваться</button>
+                </form>
+                <p class="login-link">Уже есть аккаунт? <a asp-page="/Login">Войти</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© @DateTime.Now.Year Система оценки знаний. Все права защищены.</p>
+            <p>Контакты: info@knowledge-assessment.ru</p>
+        </div>
+    </footer>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+        <script>
+            document.getElementById('registrationForm').addEventListener('submit', function(e) {
+                const password = document.getElementById('Input_Password').value;
+                const confirm = document.getElementById('Input_ConfirmPassword').value;
+
+                if(password !== confirm) {
+                    e.preventDefault();
+                    alert('Пароли не совпадают!');
+                    document.getElementById('Input_ConfirmPassword').focus();
+                }
+            });
+        </script>
+    }
+</body>
+</html>

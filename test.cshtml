@@ -1,0 +1,90 @@
+﻿@page
+@model MyCoreApp.Pages.TestModel
+@{
+    ViewData["Title"] = "Тестирование";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Система оценки знаний</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")">Главная</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="test-section">
+        <div class="container">
+            <div class="test-info">
+                <h2>Тест по математике</h2>
+                <p>Время на выполнение: 30 минут</p>
+                <p>Количество вопросов: 10</p>
+            </div>
+
+            <form id="test-form" method="post" asp-page-handler="SubmitTest">
+                <div class="question">
+                    <h3>Вопрос 1: Что равно 2 + 2?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" asp-for="Question1" value="3"> 3
+                        </label>
+                        <label>
+                            <input type="radio" asp-for="Question1" value="4"> 4
+                        </label>
+                        <label>
+                            <input type="radio" asp-for="Question1" value="5"> 5
+                        </label>
+                        <span asp-validation-for="Question1" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Вопрос 2: Решите уравнение: x² - 4 = 0</h3>
+                    <div class="options">
+                        <label>
+                            <input type="checkbox" name="Question2" value="2"> x = 2
+                        </label>
+                        <label>
+                            <input type="checkbox" name="Question2" value="-2"> x = -2
+                        </label>
+                        <label>
+                            <input type="checkbox" name="Question2" value="4"> x = 4
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>Вопрос 3: Чему равен квадратный корень из 9?</h3>
+                    <input type="text" asp-for="Question3">
+                    <span asp-validation-for="Question3" class="text-danger"></span>
+                </div>
+
+                <div class="navigation">
+                    <button type="submit" class="btn submit-btn">Завершить тест</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© @DateTime.Now.Year Система оценки знаний. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="~/js/test.js"></script>
+</body>
+</html>

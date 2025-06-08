@@ -1,0 +1,66 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Система оценки знаний";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Система оценки знаний</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="active">Главная</a></li>
+                    <li><a href="/Login">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Инновационная система оценки знаний</h2>
+            <p>Эффективный инструмент для преподавателей и учащихся</p>
+            <a href="/Login" class="btn">Начать работу</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Возможности системы</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>Автоматическая проверка</h3>
+                    <p>Мгновенная проверка тестов и заданий</p>
+                </div>
+                <div class="feature">
+                    <h3>Аналитика успеваемости</h3>
+                    <p>Детальная статистика по каждому ученику</p>
+                </div>
+                <div class="feature">
+                    <h3>Разные форматы тестов</h3>
+                    <p>Множественный выбор, открытые вопросы и другие</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacts">
+        <div class="container">
+            <p>© 2025 Система оценки знаний. Все права защищены.</p>
+            <p>Болтушкин Л.С., Маркушин В.Д., Туранов А.В.</p>
+            <p>ТУСУР, КИБЭВС, ФБ, 712-2, Курсовая работа ТИМП</p>
+        </div>
+    </footer>
+</body>
+</html>

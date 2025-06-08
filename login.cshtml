@@ -1,0 +1,69 @@
+﻿@page
+@model MyCoreApp.Pages.LoginModel
+@{
+    ViewData["Title"] = "Вход в систему";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Система оценки знаний</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Index" ? "active" : "")">Главная</a></li>
+                    <li><a href="/Login" class="@(ViewContext.RouteData.Values["Page"]?.ToString() == "/Login" ? "active" : "")">Вход</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="login-section">
+        <div class="container">
+            <div class="login-form">
+                <h2>Вход в систему</h2>
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Username">Логин:</label>
+                        <input asp-for="Input.Username" class="form-control">
+                        <span asp-validation-for="Input.Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Password">Пароль:</label>
+                        <input asp-for="Input.Password" type="password" class="form-control">
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn">Войти</button>
+                </form>
+
+                <p class="register-link">
+                    Нет аккаунта? <a asp-page="/Register">Зарегистрироваться</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© @DateTime.Now.Year Система оценки знаний. Все права защищены.</p>
+        </div>
+    </footer>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
